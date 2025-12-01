@@ -10,6 +10,7 @@ import 'package:flowkit/widgets/flow_kit_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         tag: 'flowkit_login_screen',
         init: controller,
         builder: (controller) {

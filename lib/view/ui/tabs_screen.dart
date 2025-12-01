@@ -13,6 +13,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -34,7 +35,7 @@ class _TabsScreenState extends State<TabsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'tabs_controller',
         builder: (controller) {

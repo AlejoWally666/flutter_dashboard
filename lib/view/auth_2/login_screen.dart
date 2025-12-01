@@ -8,6 +8,7 @@ import 'package:flowkit/view/layouts/auth_layout_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with UIMixin {
-  LoginController controller = Get.put(LoginController());
+  LoginController controller = LoginController();
   @override
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> with UIMixin {
   @override
   Widget build(BuildContext context) {
     return AuthLayout2(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'auth_2_login_controller',
         builder: (controller) {

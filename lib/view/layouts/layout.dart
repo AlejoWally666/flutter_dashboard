@@ -20,6 +20,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:provider/provider.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class Layout extends StatefulWidget {
   final Widget? child;
@@ -42,7 +43,7 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
+      return ControllerBuilder(
           init: controller,
           builder: (controller) {
             if (screenMT.isMobile || screenMT.isTablet) {

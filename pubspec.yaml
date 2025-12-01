@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # State
+  flutter_bloc: ^8.1.6
   get: ^4.7.2
   provider: ^6.1.5
 

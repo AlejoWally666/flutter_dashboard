@@ -20,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class JobScreen extends StatefulWidget {
   const JobScreen({super.key});
@@ -30,7 +31,7 @@ class JobScreen extends StatefulWidget {
 
 class _JobScreenState extends State<JobScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late JobController controller = Get.put(JobController());
+  late JobController controller = JobController();
 
   @override
   late OutlineInputBorder outlineInputBorder;
@@ -49,7 +50,7 @@ class _JobScreenState extends State<JobScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'job_dashboard_controller',
         builder: (controller) {

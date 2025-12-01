@@ -14,6 +14,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class BasicTableScreen extends StatefulWidget {
   const BasicTableScreen({super.key});
@@ -35,7 +36,7 @@ class _BasicTableScreenState extends State<BasicTableScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         builder: (controller) {
           return Column(

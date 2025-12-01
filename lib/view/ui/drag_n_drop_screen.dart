@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class DragNDropScreen extends StatefulWidget {
   const DragNDropScreen({super.key});
@@ -28,14 +29,14 @@ class _DragNDropScreenState extends State<DragNDropScreen>
 
   @override
   void initState() {
-    controller = Get.put(DragNDropController());
+    controller = DragNDropController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'drag_n_drop_controller',
         builder: (controller) {

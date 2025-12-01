@@ -18,6 +18,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ProductsGridScreen extends StatefulWidget {
   const ProductsGridScreen({super.key});
@@ -28,7 +29,7 @@ class ProductsGridScreen extends StatefulWidget {
 
 class _ProductsGridScreenState extends State<ProductsGridScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late ProductListController controller = Get.put(ProductListController());
+  late ProductListController controller = ProductListController();
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _ProductsGridScreenState extends State<ProductsGridScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'product_list_controller',
         builder: (controller) {

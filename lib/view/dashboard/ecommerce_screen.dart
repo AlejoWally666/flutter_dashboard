@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class EcommerceScreen extends StatefulWidget {
   const EcommerceScreen({super.key});
@@ -31,7 +32,7 @@ class EcommerceScreen extends StatefulWidget {
 
 class _EcommerceScreenState extends State<EcommerceScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late EcommerceController controller = Get.put(EcommerceController());
+  late EcommerceController controller = EcommerceController();
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _EcommerceScreenState extends State<EcommerceScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'ecommerce_dashboard_controller',
         builder: (controller) {

@@ -17,6 +17,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CarouselsScreen extends StatefulWidget {
   const CarouselsScreen({super.key});
@@ -38,7 +39,7 @@ class _CarouselsScreenState extends State<CarouselsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         builder: (controller) {
           return Column(
