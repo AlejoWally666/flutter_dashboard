@@ -10,6 +10,7 @@ import 'package:flowkit/widgets/flow_kit_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -31,7 +32,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'flowkit_reset_password_controller',
         builder: (controller) {

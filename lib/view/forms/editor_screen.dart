@@ -12,6 +12,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class EditorScreen extends StatefulWidget {
   const EditorScreen({super.key});
@@ -31,7 +32,7 @@ class _EditorScreenState extends State<EditorScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'editor_controller',
         builder: (controller) {

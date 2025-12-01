@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart' as sf_calendar;
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -27,7 +28,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  final CalendarController _controller = Get.put(CalendarController());
+  final CalendarController _controller = CalendarController();
   @override
   late OutlineInputBorder outlineInputBorder;
 
@@ -42,7 +43,7 @@ class _CalendarScreenState extends State<CalendarScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: _controller,
         tag: 'calendar_controller',
         builder: (_) {

@@ -13,6 +13,7 @@ import 'package:flowkit/images.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AuthLayout extends StatefulWidget {
   final Widget? child;
@@ -29,7 +30,7 @@ class _AuthLayoutState extends State<AuthLayout> with UIMixin {
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
+      return ControllerBuilder(
           init: controller,
           builder: (controller) {
             return screenMT.isMobile

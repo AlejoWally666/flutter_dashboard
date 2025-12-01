@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -30,7 +31,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late AddProductController controller = Get.put(AddProductController());
+  late AddProductController controller = AddProductController();
   late OutlineInputBorder _outlineInputBorder;
 
   @override
@@ -45,7 +46,7 @@ class _AddProductScreenState extends State<AddProductScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'add_product_controller',
         builder: (controller) {

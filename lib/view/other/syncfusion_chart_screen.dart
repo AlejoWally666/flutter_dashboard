@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class SyncFusionChartScreen extends StatefulWidget {
   const SyncFusionChartScreen({super.key});
@@ -36,7 +37,7 @@ class _SyncFusionChartScreenState extends State<SyncFusionChartScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         builder: (controller) {
           return Column(

@@ -9,6 +9,7 @@ import 'package:flowkit/view/layouts/auth_layout.dart';
 import 'package:flowkit/widgets/flow_kit_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -30,7 +31,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'flowkit_forgot_password_controller',
         builder: (controller) {

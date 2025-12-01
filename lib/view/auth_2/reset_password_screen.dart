@@ -8,6 +8,7 @@ import 'package:flowkit/view/layouts/auth_layout_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -18,7 +19,7 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen>
     with UIMixin {
-  ResetPasswordController controller = Get.put(ResetPasswordController());
+  ResetPasswordController controller = ResetPasswordController();
 
   @override
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
@@ -28,7 +29,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout2(
-        child: GetBuilder(
+        child: ControllerBuilder(
       init: controller,
       tag: 'auth_2_reset_password_controller',
       builder: (controller) {

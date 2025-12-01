@@ -7,6 +7,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ComingSoonScreen extends StatefulWidget {
   const ComingSoonScreen({super.key});
@@ -27,7 +28,7 @@ class _ComingSoonScreenState extends State<ComingSoonScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
+    return ControllerBuilder(
       init: controller,
       tag: 'coming_soon_controller',
       builder: (controller) {

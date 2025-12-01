@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class RealEstateScreen extends StatefulWidget {
   const RealEstateScreen({super.key});
@@ -32,14 +33,14 @@ class _RealEstateScreenState extends State<RealEstateScreen>
 
   @override
   void initState() {
-    controller = Get.put(RealEstateController());
+    controller = RealEstateController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'real_estate_controller',
         builder: (controller) {
