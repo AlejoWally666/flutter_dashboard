@@ -1,45 +1,90 @@
 import 'dart:convert';
 
-import 'package:flowkit/helpers/services/json_decoder.dart';
 import 'package:flowkit/model/identifier_model.dart';
+import 'package:flowkit/model/model.dart';
 import 'package:flutter/services.dart';
 
 class JobModal extends IdentifierModel {
-  final String jobTitle, jobLocation;
-  final int jobHr, price;
+  final String jobTitle;
+  final String jobLocation;
+  final int jobHr;
+  final int price;
   final List<String> jobWork;
 
-  JobModal(super.id, this.jobTitle, this.jobLocation, this.jobHr, this.price,
-      this.jobWork);
+  const JobModal({
+    int id = 0,
+    this.jobTitle = '',
+    this.jobLocation = '',
+    this.jobHr = 0,
+    this.price = 0,
+    this.jobWork = const [],
+  }) : super(id: id);
 
-  static JobModal fromJSON(Map<String, dynamic> json) {
-    JSONDecoder decoder = JSONDecoder(json);
-
-    String jobTitle = decoder.getString('job_title');
-    String jobLocation = decoder.getString('job_location');
-    int jobHr = decoder.getInt('job_hr');
-    int price = decoder.getInt('price');
-    List<String>? jobWork = decoder.getObjectListOrNull('job_work');
-
+  factory JobModal.fromJson(Map<String, dynamic>? json) {
+    final data = json ?? <String, dynamic>{};
     return JobModal(
-        decoder.getId, jobTitle, jobLocation, jobHr, price, jobWork!);
+      id: Model.parseInt(data['id']),
+      jobTitle: Model.parseString(data['job_title']),
+      jobLocation: Model.parseString(data['job_location']),
+      jobHr: Model.parseInt(data['job_hr']),
+      price: Model.parseInt(data['price']),
+      jobWork: Model.parseList<String>(data['job_work'], (item) => Model.parseString(item)),
+    );
   }
 
-  static List<JobModal> listFromJSON(List<dynamic> list) {
-    return list.map((e) => JobModal.fromJSON(e)).toList();
+  factory JobModal.fromText(String source) {
+    final dynamic decoded = jsonDecode(source);
+    if (decoded is Map<String, dynamic>) {
+      return JobModal.fromJson(decoded);
+    }
+    return JobModal.initial();
   }
+
+  static List<JobModal> listFromJson(List<dynamic>? list) {
+    return Model.parseList(list, (item) => JobModal.fromJson(item));
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'job_title': jobTitle,
+        'job_location': jobLocation,
+        'job_hr': jobHr,
+        'price': price,
+        'job_work': jobWork,
+      };
+
+  JobModal copyWith({
+    int? id,
+    String? jobTitle,
+    String? jobLocation,
+    int? jobHr,
+    int? price,
+    List<String>? jobWork,
+  }) {
+    return JobModal(
+      id: id ?? this.id,
+      jobTitle: jobTitle ?? this.jobTitle,
+      jobLocation: jobLocation ?? this.jobLocation,
+      jobHr: jobHr ?? this.jobHr,
+      price: price ?? this.price,
+      jobWork: jobWork ?? this.jobWork,
+    );
+  }
+
+  static JobModal initial() => const JobModal();
 
   static List<JobModal>? _dummyList;
 
   static Future<List<JobModal>> get dummyList async {
     if (_dummyList == null) {
-      dynamic data = json.decode(await getData());
-      _dummyList = listFromJSON(data);
+      final dynamic data = json.decode(await getData());
+      _dummyList = listFromJson(data as List<dynamic>?);
     }
     return _dummyList!;
   }
 
   static Future<String> getData() async {
-    return await rootBundle.loadString('assets/data/job.json');
+    return rootBundle.loadString('assets/data/job.json');
   }
 }
