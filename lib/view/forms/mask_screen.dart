@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 import 'package:flowkit/controller/forms/mask_controller.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
@@ -38,7 +39,7 @@ class _MaskScreenState extends State<MaskScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'mask_controller',
         builder: (controller) {

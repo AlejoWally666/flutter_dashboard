@@ -8,6 +8,7 @@ import 'package:flowkit/view/layouts/auth_layout_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -18,7 +19,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     with UIMixin {
-  ForgotPasswordController controller = Get.put(ForgotPasswordController());
+  ForgotPasswordController controller = ForgotPasswordController();
 
   @override
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
@@ -28,7 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout2(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'auth_2forgot_password_controller',
         builder: (controller) {

@@ -15,6 +15,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ModalScreen extends StatefulWidget {
   const ModalScreen({super.key});
@@ -36,7 +37,7 @@ class _ModalScreenState extends State<ModalScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'modal_controller',
         builder: (controller) {

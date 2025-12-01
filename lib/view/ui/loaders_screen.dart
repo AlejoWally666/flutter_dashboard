@@ -13,6 +13,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class LoadersScreen extends StatefulWidget {
   const LoadersScreen({super.key});
@@ -34,7 +35,7 @@ class _LoadersScreenState extends State<LoadersScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'loaders_controller',
         builder: (controller) {

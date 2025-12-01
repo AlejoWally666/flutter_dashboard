@@ -16,6 +16,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class SliderScreen extends StatefulWidget {
   const SliderScreen({super.key});
@@ -37,7 +38,7 @@ class _SliderScreenState extends State<SliderScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'slider_controller',
         builder: (controller) {

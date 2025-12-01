@@ -18,6 +18,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CardsScreen extends StatefulWidget {
   const CardsScreen({super.key});
@@ -39,7 +40,7 @@ class _CardsScreenState extends State<CardsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'cards_controller',
         builder: (controller) {

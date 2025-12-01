@@ -13,6 +13,7 @@ import 'package:flowkit/model/job_modal.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class JobListScreen extends StatefulWidget {
   const JobListScreen({super.key});
@@ -34,7 +35,7 @@ class _JobListScreenState extends State<JobListScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'job_list_controller',
         builder: (controller) {

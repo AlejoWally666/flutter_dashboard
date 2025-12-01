@@ -1,10 +1,14 @@
 import 'package:flowkit/helpers/theme/theme_customizer.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 
-abstract class MyController extends GetxController {
-  @override
+abstract class MyController extends Cubit<int> {
+  MyController() : super(0) {
+    onInit();
+  }
+
+  @mustCallSuper
   void onInit() {
-    super.onInit();
     ThemeCustomizer.addListener((old, newVal) {
       if (old.theme != newVal.theme ||
           (old.currentLanguage.languageName !=
@@ -14,6 +18,9 @@ abstract class MyController extends GetxController {
       }
     });
   }
+
+  @protected
+  void update() => emit(state + 1);
 
   void onThemeChanged() {}
 }

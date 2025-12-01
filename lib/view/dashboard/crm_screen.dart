@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CRMScreen extends StatefulWidget {
   const CRMScreen({super.key});
@@ -32,7 +33,7 @@ class CRMScreen extends StatefulWidget {
 
 class _CRMScreenState extends State<CRMScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late CRMController controller = Get.put(CRMController());
+  late CRMController controller = CRMController();
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _CRMScreenState extends State<CRMScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'crm_controller',
         builder: (controller) {

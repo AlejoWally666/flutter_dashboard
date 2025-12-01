@@ -20,6 +20,7 @@ import 'package:flowkit/model/product_modal.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key});
@@ -30,7 +31,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late ProductDetailController controller = Get.put(ProductDetailController());
+  late ProductDetailController controller = ProductDetailController();
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         builder: (controller) {
           return Column(

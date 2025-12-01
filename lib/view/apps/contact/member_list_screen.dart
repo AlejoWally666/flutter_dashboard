@@ -15,6 +15,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class MemberListScreen extends StatefulWidget {
   const MemberListScreen({super.key});
@@ -25,7 +26,7 @@ class MemberListScreen extends StatefulWidget {
 
 class _MemberListScreenState extends State<MemberListScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late MemberListController controller = Get.put(MemberListController());
+  late MemberListController controller = MemberListController();
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _MemberListScreenState extends State<MemberListScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'member_list_controller',
         builder: (controller) {

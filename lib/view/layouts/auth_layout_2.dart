@@ -6,6 +6,7 @@ import 'package:flowkit/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metaballs/dart_ui_real.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AuthLayout2 extends StatefulWidget {
   final Widget child;
@@ -17,12 +18,12 @@ class AuthLayout2 extends StatefulWidget {
 }
 
 class _AuthLayout2State extends State<AuthLayout2> with UIMixin {
-  AuthLayout2Controller controller = Get.put(AuthLayout2Controller());
+  AuthLayout2Controller controller = AuthLayout2Controller();
 
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
+      return ControllerBuilder(
           init: controller,
           builder: (controller) {
             return screenMT.isMobile ? mobileScreen() : largeScreen();

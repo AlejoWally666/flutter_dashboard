@@ -7,6 +7,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class Error500Screen extends StatefulWidget {
   const Error500Screen({super.key});
@@ -27,7 +28,7 @@ class _Error500ScreenState extends State<Error500Screen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
+    return ControllerBuilder(
       init: controller,
       tag: 'error_500_controller',
       builder: (controller) {

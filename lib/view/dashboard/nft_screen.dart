@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class NFTScreen extends StatefulWidget {
   const NFTScreen({super.key});
@@ -40,7 +41,7 @@ class _NFTScreenState extends State<NFTScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         tag: 'nft_dashboard_controller',
         init: controller,
         builder: (controller) {

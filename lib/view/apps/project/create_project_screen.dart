@@ -18,6 +18,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({super.key});
@@ -28,12 +29,12 @@ class CreateProjectScreen extends StatefulWidget {
 
 class _CreateProjectScreenState extends State<CreateProjectScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  CreateProjectController controller = Get.put(CreateProjectController());
+  CreateProjectController controller = CreateProjectController();
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'create_project_controller',
         builder: (controller) {
