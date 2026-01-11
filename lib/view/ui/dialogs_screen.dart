@@ -14,6 +14,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class DialogsScreen extends StatefulWidget {
   const DialogsScreen({super.key});
@@ -35,8 +36,8 @@ class _DialogsScreenState extends State<DialogsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'dialogs_controller',
         builder: (controller) {
           return Column(

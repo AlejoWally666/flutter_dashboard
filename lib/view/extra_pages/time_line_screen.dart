@@ -15,6 +15,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class TimeLineScreen extends StatefulWidget {
   const TimeLineScreen({super.key});
@@ -35,8 +36,8 @@ class _TimeLineScreenState extends State<TimeLineScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'time_line_controller',
         builder: (controller) {
           return Column(

@@ -21,7 +21,7 @@ class PosController extends MyController {
     });
     ShoppingCart.dummyList.then((value) {
       shoppingCart = value;
-      update();
+      calculateBilling();
     });
     super.onInit();
   }
@@ -46,15 +46,22 @@ class PosController extends MyController {
 
   void increment(ShoppingCart cart) {
     if (!increaseAble(cart)) return;
-    cart.quantity++;
+    shoppingCart = shoppingCart
+        .map((item) => item.id == cart.id
+            ? item.copyWith(quantity: item.quantity + 1)
+            : item)
+        .toList();
     calculateBilling();
-    update();
   }
 
   void decrement(ShoppingCart cart) {
     if (!decreaseAble(cart)) return;
-    cart.quantity--;
-    update();
+    shoppingCart = shoppingCart
+        .map((item) => item.id == cart.id
+            ? item.copyWith(quantity: item.quantity - 1)
+            : item)
+        .toList();
+    calculateBilling();
   }
 
   void calculateBilling() {

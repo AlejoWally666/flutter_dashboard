@@ -412,10 +412,10 @@ class MapController extends MyController {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     timeZones.clear();
     worldPopulationDensity.clear();
-    super.dispose();
+    await super.dispose();
   }
 }
 

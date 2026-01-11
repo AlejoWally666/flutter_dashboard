@@ -47,7 +47,12 @@ class ChatController extends MyController {
   void sendMessage() {
     if (messageController.value.text.isNotEmpty && selectChat != null) {
       selectChat!.messages.add(ChatMessageModel(
-          -1, messageController.text, DateTime.now(), true, ""));
+        id: -1,
+        message: messageController.text,
+        sendAt: DateTime.now(),
+        fromMe: true,
+        imageSent: "",
+      ));
       messageController.clear();
       scrollToBottom(isDelayed: true);
       update();
@@ -74,8 +79,8 @@ class ChatController extends MyController {
 
 
   @override
-  void dispose() {
-    super.dispose();
+  Future<void> dispose() async {
     _timer.cancel();
+    await super.dispose();
   }
 }

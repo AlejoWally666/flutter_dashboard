@@ -14,6 +14,7 @@ import 'package:flowkit/images.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -39,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
+      child: ControllerBuilder(
         init: controller,
         tag: 'profile_controller',
         builder: (controller) {

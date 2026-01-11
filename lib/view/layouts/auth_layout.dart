@@ -1,5 +1,6 @@
 import 'package:floating_bubbles/floating_bubbles.dart';
 import 'package:flowkit/controller/layout/auth_layout_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/widgets/my_container.dart';
@@ -13,6 +14,7 @@ import 'package:flowkit/images.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AuthLayout extends StatefulWidget {
   final Widget? child;
@@ -24,13 +26,13 @@ class AuthLayout extends StatefulWidget {
 }
 
 class _AuthLayoutState extends State<AuthLayout> with UIMixin {
-  final AuthLayoutController controller = AuthLayoutController();
+  final final AuthLayoutController controller = ServiceLocator.ensure<AuthLayoutController>(() => AuthLayoutController());
 
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
-          init: controller,
+      return ControllerBuilder(
+          init: () => controller,
           builder: (controller) {
             return screenMT.isMobile
                 ? mobileScreen(context)

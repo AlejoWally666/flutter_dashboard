@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/dashboard/job_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/utils/my_shadow.dart';
@@ -20,6 +21,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class JobScreen extends StatefulWidget {
   const JobScreen({super.key});
@@ -30,7 +32,7 @@ class JobScreen extends StatefulWidget {
 
 class _JobScreenState extends State<JobScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late JobController controller = Get.put(JobController());
+  late final JobController controller = ServiceLocator.ensure<JobController>(() => JobController());
 
   @override
   late OutlineInputBorder outlineInputBorder;
@@ -49,8 +51,8 @@ class _JobScreenState extends State<JobScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'job_dashboard_controller',
         builder: (controller) {
           return Column(

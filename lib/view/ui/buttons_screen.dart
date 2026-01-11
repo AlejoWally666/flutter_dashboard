@@ -13,6 +13,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ButtonsScreen extends StatefulWidget {
   const ButtonsScreen({super.key});
@@ -34,8 +35,8 @@ class _ButtonsScreenState extends State<ButtonsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'buttons_controller',
         builder: (controller) {
           return Column(

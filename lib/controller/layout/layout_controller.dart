@@ -1,8 +1,8 @@
+import 'package:flowkit/controller/my_controller.dart';
 import 'package:flowkit/helpers/theme/theme_customizer.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class LayoutController extends GetxController {
+class LayoutController extends MyController {
   ThemeCustomizer themeCustomizer = ThemeCustomizer();
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
@@ -13,9 +13,9 @@ class LayoutController extends GetxController {
   bool isLastIndex = false;
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
     ThemeCustomizer.addListener(onChangeTheme);
+    super.onInit();
   }
 
   void onChangeTheme(ThemeCustomizer oldVal, ThemeCustomizer newVal) {
@@ -38,9 +38,9 @@ class LayoutController extends GetxController {
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  Future<void> dispose() async {
     ThemeCustomizer.removeListener(onChangeTheme);
     scrollController.dispose();
+    await super.dispose();
   }
 }

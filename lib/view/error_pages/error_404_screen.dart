@@ -7,6 +7,7 @@ import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class Error404Screen extends StatefulWidget {
   const Error404Screen({super.key});
@@ -27,8 +28,8 @@ class _Error404ScreenState extends State<Error404Screen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: controller,
+    return ControllerBuilder(
+      init: () => controller,
       tag: 'error_404_controller',
       builder: (controller) {
         return Scaffold(

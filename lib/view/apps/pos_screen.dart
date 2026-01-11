@@ -18,6 +18,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class PosScreen extends StatefulWidget {
   const PosScreen({super.key});
@@ -32,15 +33,15 @@ class _PosScreenState extends State<PosScreen>
 
   @override
   void initState() {
-    controller = Get.put(PosController());
+    controller = PosController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'pos_controller',
         builder: (controller) {
           return Column(

@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class FoodScreen extends StatefulWidget {
   const FoodScreen({super.key});
@@ -32,15 +33,15 @@ class _FoodScreenState extends State<FoodScreen>
 
   @override
   void initState() {
-    controller = Get.put(FoodController());
+    controller = FoodController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'food_dashboard_controller',
         builder: (controller) {
           return Column(

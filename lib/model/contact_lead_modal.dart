@@ -1,46 +1,101 @@
 import 'dart:convert';
 
-import 'package:flowkit/helpers/services/json_decoder.dart';
 import 'package:flowkit/images.dart';
 import 'package:flowkit/model/identifier_model.dart';
+import 'package:flowkit/model/model.dart';
 import 'package:flutter/services.dart';
 
 class ContactLeadModal extends IdentifierModel {
-  final String contactName, number, location, image;
+  final String contactName;
+  final String number;
   final int leadsScore;
+  final String location;
   final DateTime createdAt;
+  final String image;
 
-  ContactLeadModal(super.id, this.contactName, this.number, this.location,
-      this.leadsScore, this.createdAt, this.image);
+  ContactLeadModal({
+    int id = 0,
+    this.contactName = '',
+    this.number = '',
+    this.leadsScore = 0,
+    this.location = '',
+    DateTime? createdAt,
+    this.image = '',
+  })  : createdAt = createdAt ?? DateTime.fromMillisecondsSinceEpoch(0),
+        super(id: id);
 
-  static ContactLeadModal fromJSON(Map<String, dynamic> json) {
-    JSONDecoder decoder = JSONDecoder(json);
-
-    String contactName = decoder.getString('contact_name');
-    String number = decoder.getString('number');
-    String location = decoder.getString('location');
-    String image = Images.randomImage(Images.landscape);
-    int leadsScore = decoder.getInt('leads_score');
-    DateTime createdAt = decoder.getDateTime('created_at');
-    return ContactLeadModal(decoder.getId, contactName, number, location,
-        leadsScore, createdAt, image);
+  factory ContactLeadModal.fromJson(Map<String, dynamic>? json) {
+    final data = json ?? <String, dynamic>{};
+    return ContactLeadModal(
+      id: Model.parseInt(data['id']),
+      contactName: Model.parseString(data['contact_name']),
+      number: Model.parseString(data['number']),
+      leadsScore: Model.parseInt(data['leads_score']),
+      location: Model.parseString(data['location']),
+      createdAt: Model.parseDateTime(data['created_at']),
+      image: Model.parseString(
+        data['image'],
+        defaultValue: Images.randomImage(Images.avatars),
+      ),
+    );
   }
 
-  static List<ContactLeadModal> listFromJSON(List<dynamic> list) {
-    return list.map((e) => ContactLeadModal.fromJSON(e)).toList();
+  factory ContactLeadModal.fromText(String source) {
+    final dynamic decoded = jsonDecode(source);
+    if (decoded is Map<String, dynamic>) {
+      return ContactLeadModal.fromJson(decoded);
+    }
+    return ContactLeadModal.initial();
   }
+
+  static List<ContactLeadModal> listFromJson(List<dynamic>? list) {
+    return Model.parseList(list, (item) => ContactLeadModal.fromJson(item));
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'contact_name': contactName,
+        'number': number,
+        'leads_score': leadsScore,
+        'location': location,
+        'created_at': createdAt.toUtc().toIso8601String(),
+        'image': image,
+      };
+
+  ContactLeadModal copyWith({
+    int? id,
+    String? contactName,
+    String? number,
+    int? leadsScore,
+    String? location,
+    DateTime? createdAt,
+    String? image,
+  }) {
+    return ContactLeadModal(
+      id: id ?? this.id,
+      contactName: contactName ?? this.contactName,
+      number: number ?? this.number,
+      leadsScore: leadsScore ?? this.leadsScore,
+      location: location ?? this.location,
+      createdAt: createdAt ?? this.createdAt,
+      image: image ?? this.image,
+    );
+  }
+
+  static ContactLeadModal initial() => ContactLeadModal();
 
   static List<ContactLeadModal>? _dummyList;
 
   static Future<List<ContactLeadModal>> get dummyList async {
     if (_dummyList == null) {
-      dynamic data = json.decode(await getData());
-      _dummyList = listFromJSON(data);
+      final dynamic data = json.decode(await getData());
+      _dummyList = listFromJson(data as List<dynamic>?);
     }
     return _dummyList!;
   }
 
   static Future<String> getData() async {
-    return await rootBundle.loadString('assets/data/contact_leads.json');
+    return rootBundle.loadString('assets/data/contact_leads.json');
   }
 }

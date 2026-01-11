@@ -1,46 +1,96 @@
 import 'dart:convert';
 
-import 'package:flowkit/helpers/services/json_decoder.dart';
 import 'package:flowkit/model/identifier_model.dart';
+import 'package:flowkit/model/model.dart';
 import 'package:flutter/services.dart';
 
 class ProductModal extends IdentifierModel {
-  final String name, image;
-  final int categoryId, stock;
-  final double price, rating;
+  final String name;
+  final String image;
+  final int categoryId;
+  final int stock;
+  final double price;
+  final double rating;
 
-  ProductModal(super.id, this.name, this.image, this.categoryId, this.stock,
-      this.price, this.rating);
+  const ProductModal({
+    int id = 0,
+    this.name = '',
+    this.image = '',
+    this.categoryId = 0,
+    this.stock = 0,
+    this.price = 0,
+    this.rating = 0,
+  }) : super(id: id);
 
-  static ProductModal fromJSON(Map<String, dynamic> json) {
-    JSONDecoder decoder = JSONDecoder(json);
-
-    String name = decoder.getString('name');
-    String image = decoder.getString('image');
-    int categoryId = decoder.getInt('category_id');
-    int stock = decoder.getInt('stock');
-    double price = decoder.getDouble('price');
-    double rating = decoder.getDouble('rating');
-
+  factory ProductModal.fromJson(Map<String, dynamic>? json) {
+    final data = json ?? <String, dynamic>{};
     return ProductModal(
-        decoder.getId, name, image, categoryId, stock, price, rating);
+      id: Model.parseInt(data['id']),
+      name: Model.parseString(data['name']),
+      image: Model.parseString(data['image']),
+      categoryId: Model.parseInt(data['category_id']),
+      stock: Model.parseInt(data['stock']),
+      price: Model.parseDouble(data['price']),
+      rating: Model.parseDouble(data['rating']),
+    );
   }
 
-  static List<ProductModal> listFromJSON(List<dynamic> list) {
-    return list.map((e) => ProductModal.fromJSON(e)).toList();
+  factory ProductModal.fromText(String source) {
+    final dynamic decoded = jsonDecode(source);
+    if (decoded is Map<String, dynamic>) {
+      return ProductModal.fromJson(decoded);
+    }
+    return ProductModal.initial();
   }
+
+  static List<ProductModal> listFromJson(List<dynamic>? list) {
+    return Model.parseList(list, (item) => ProductModal.fromJson(item));
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'image': image,
+        'category_id': categoryId,
+        'stock': stock,
+        'price': price,
+        'rating': rating,
+      };
+
+  ProductModal copyWith({
+    int? id,
+    String? name,
+    String? image,
+    int? categoryId,
+    int? stock,
+    double? price,
+    double? rating,
+  }) {
+    return ProductModal(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      categoryId: categoryId ?? this.categoryId,
+      stock: stock ?? this.stock,
+      price: price ?? this.price,
+      rating: rating ?? this.rating,
+    );
+  }
+
+  static ProductModal initial() => const ProductModal();
 
   static List<ProductModal>? _dummyList;
 
   static Future<List<ProductModal>> get dummyList async {
     if (_dummyList == null) {
-      dynamic data = json.decode(await getData());
-      _dummyList = listFromJSON(data);
+      final dynamic data = json.decode(await getData());
+      _dummyList = listFromJson(data as List<dynamic>?);
     }
     return _dummyList!;
   }
 
   static Future<String> getData() async {
-    return await rootBundle.loadString('assets/data/product.json');
+    return rootBundle.loadString('assets/data/product.json');
   }
 }

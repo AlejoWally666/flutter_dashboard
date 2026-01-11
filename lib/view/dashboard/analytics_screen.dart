@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/dashboard/analytics_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/utils/my_shadow.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
@@ -29,7 +31,7 @@ class AnalyticsScreen extends StatefulWidget {
 
 class _AnalyticsScreenState extends State<AnalyticsScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late AnalyticsController controller = Get.put(AnalyticsController());
+  late final AnalyticsController controller = ServiceLocator.ensure<AnalyticsController>(() => AnalyticsController());
 
   @override
   void initState() {
@@ -40,8 +42,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         builder: (controller) {
           return Column(
             children: [
@@ -200,7 +202,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
                             DataCell(SizedBox(
                               width: 250,
                               child: MyText.labelLarge(
-                                data.channel,
+                                data.channel.label,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),

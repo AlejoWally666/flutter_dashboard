@@ -28,9 +28,9 @@ class ModalController extends MyController {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     animationController.dispose();
-    super.dispose();
+    await super.dispose();
   }
 
   void onChangeAnimation(Curve value) {

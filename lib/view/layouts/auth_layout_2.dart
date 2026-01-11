@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/layout/auth_layout_2_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/widgets/my_container.dart';
 import 'package:flowkit/helpers/widgets/my_responsive.dart';
@@ -6,6 +7,7 @@ import 'package:flowkit/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metaballs/dart_ui_real.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class AuthLayout2 extends StatefulWidget {
   final Widget child;
@@ -17,13 +19,13 @@ class AuthLayout2 extends StatefulWidget {
 }
 
 class _AuthLayout2State extends State<AuthLayout2> with UIMixin {
-  AuthLayout2Controller controller = Get.put(AuthLayout2Controller());
+  final AuthLayout2Controller controller = ServiceLocator.ensure<AuthLayout2Controller>(() => AuthLayout2Controller());
 
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
-          init: controller,
+      return ControllerBuilder(
+          init: () => controller,
           builder: (controller) {
             return screenMT.isMobile ? mobileScreen() : largeScreen();
           });

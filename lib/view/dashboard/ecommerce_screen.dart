@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/dashboard/ecommerce_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/utils/my_shadow.dart';
@@ -16,11 +17,13 @@ import 'package:flowkit/helpers/widgets/my_spacing.dart';
 import 'package:flowkit/helpers/widgets/my_star_rating.dart';
 import 'package:flowkit/helpers/widgets/my_text.dart';
 import 'package:flowkit/images.dart';
+import 'package:flowkit/model/product_order_modal.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class EcommerceScreen extends StatefulWidget {
   const EcommerceScreen({super.key});
@@ -31,7 +34,7 @@ class EcommerceScreen extends StatefulWidget {
 
 class _EcommerceScreenState extends State<EcommerceScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late EcommerceController controller = Get.put(EcommerceController());
+  late final EcommerceController controller = ServiceLocator.ensure<EcommerceController>(() => EcommerceController());
 
   @override
   void initState() {
@@ -42,8 +45,8 @@ class _EcommerceScreenState extends State<EcommerceScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'ecommerce_dashboard_controller',
         builder: (controller) {
           return Column(
@@ -484,8 +487,8 @@ class _EcommerceScreenState extends State<EcommerceScreen>
                             )),
                             DataCell(SizedBox(
                                 width: 100,
-                                child: MyText.bodyMedium(data.payment,
-                                    fontWeight: 600))),
+                                child: MyText.bodyMedium(
+                                    data.payment.label, fontWeight: 600))),
                             DataCell(SizedBox(
                               width: 100,
                               child: MyText.bodyMedium("${data.quantity}",
@@ -506,7 +509,7 @@ class _EcommerceScreenState extends State<EcommerceScreen>
                               padding: MySpacing.xy(8, 4),
                               color: getStatusColor(data.status)?.withAlpha(32),
                               child: MyText.bodySmall(
-                                data.status,
+                                data.status.label,
                                 fontWeight: 600,
                                 color: getStatusColor(data.status),
                               ),
@@ -519,15 +522,15 @@ class _EcommerceScreenState extends State<EcommerceScreen>
     );
   }
 
-  Color? getStatusColor(String? status) {
+  Color? getStatusColor(OrderStatus status) {
     switch (status) {
-      case "Delivered":
+      case OrderStatus.delivered:
         return contentTheme.primary;
-      case "Shopping":
+      case OrderStatus.shopping:
         return contentTheme.success;
-      case "New":
+      case OrderStatus.newOrder:
         return contentTheme.warning;
-      case "Pending":
+      case OrderStatus.pending:
         return contentTheme.danger;
       default:
         return null;

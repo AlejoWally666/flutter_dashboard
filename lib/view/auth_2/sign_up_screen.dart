@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/auth_2/sign_up_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/widgets/my_button.dart';
 import 'package:flowkit/helpers/widgets/my_spacing.dart';
@@ -8,6 +9,7 @@ import 'package:flowkit/view/layouts/auth_layout_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> with UIMixin {
-  SignUpController controller = Get.put(SignUpController());
+  final SignUpController controller = ServiceLocator.ensure<SignUpController>(() => SignUpController());
 
   @override
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
@@ -27,8 +29,8 @@ class _SignUpScreenState extends State<SignUpScreen> with UIMixin {
   @override
   Widget build(BuildContext context) {
     return AuthLayout2(
-        child: GetBuilder(
-      init: controller,
+        child: ControllerBuilder(
+      init: () => controller,
       tag: 'auth_2_sign_up_controller',
       builder: (controller) {
         return Form(

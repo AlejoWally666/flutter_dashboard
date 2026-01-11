@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flowkit/controller/dashboard/crm_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/utils/my_shadow.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class CRMScreen extends StatefulWidget {
   const CRMScreen({super.key});
@@ -32,7 +34,7 @@ class CRMScreen extends StatefulWidget {
 
 class _CRMScreenState extends State<CRMScreen>
     with SingleTickerProviderStateMixin, UIMixin {
-  late CRMController controller = Get.put(CRMController());
+  late final CRMController controller = ServiceLocator.ensure<CRMController>(() => CRMController());
 
   @override
   void initState() {
@@ -43,8 +45,8 @@ class _CRMScreenState extends State<CRMScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'crm_controller',
         builder: (controller) {
           return Column(

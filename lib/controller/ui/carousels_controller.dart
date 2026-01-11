@@ -57,10 +57,10 @@ class CarouselsController extends MyController {
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  Future<void> dispose() async {
     timerAnimation?.cancel();
     simplePageController.dispose();
     animatedPageController.dispose();
+    await super.dispose();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/layout/layout_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/services/localizations/language.dart';
 import 'package:flowkit/helpers/theme/admin_theme.dart';
 import 'package:flowkit/helpers/theme/app_notifier.dart';
@@ -20,6 +21,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:provider/provider.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class Layout extends StatefulWidget {
   final Widget? child;
@@ -31,7 +33,8 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
-  final LayoutController controller = LayoutController();
+  final LayoutController controller =
+      ServiceLocator.ensure<LayoutController>(() => LayoutController());
 
   final topBarTheme = AdminTheme.theme.topBarTheme;
 
@@ -42,8 +45,8 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return MyResponsive(builder: (BuildContext context, _, screenMT) {
-      return GetBuilder(
-          init: controller,
+      return ControllerBuilder(
+          init: () => controller,
           builder: (controller) {
             if (screenMT.isMobile || screenMT.isTablet) {
               return mobileScreen();

@@ -13,6 +13,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -36,8 +37,8 @@ class _MapScreenState extends State<MapScreen>
     return Layout(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return GetBuilder(
-            init: controller,
+          return ControllerBuilder(
+            init: () => controller,
             builder: (controller) {
               return Column(
                 children: [

@@ -45,10 +45,10 @@ class NFTController extends MyController {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     timerAnimation?.cancel();
     animatedPageController.dispose();
-    super.dispose();
+    await super.dispose();
   }
 
   List<LineSeries<_ChartData, num>> getDefaultLineSeries() {

@@ -11,6 +11,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class KanBanBoardScreen extends StatefulWidget {
   const KanBanBoardScreen({super.key});
@@ -35,8 +36,8 @@ class _KanBanBoardScreenState extends State<KanBanBoardScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'kanban_controller',
         builder: (controller) {
           return Column(

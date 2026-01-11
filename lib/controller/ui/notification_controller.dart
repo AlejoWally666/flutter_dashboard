@@ -163,12 +163,12 @@ class NotificationController extends MyController {
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  Future<void> dispose() async {
     _timer?.cancel();
     try {
       ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
       ScaffoldMessenger.of(Get.context!).hideCurrentMaterialBanner();
     } catch (e) {}
+    await super.dispose();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/forms/editor_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/widgets/my_breadcrumb.dart';
@@ -12,6 +13,7 @@ import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class EditorScreen extends StatefulWidget {
   const EditorScreen({super.key});
@@ -21,7 +23,7 @@ class EditorScreen extends StatefulWidget {
 }
 
 class _EditorScreenState extends State<EditorScreen> with SingleTickerProviderStateMixin, UIMixin {
-  EditorController controller = EditorController();
+  final EditorController controller = ServiceLocator.ensure<EditorController>(() => EditorController());
 
   @override
   void initState() {
@@ -31,8 +33,8 @@ class _EditorScreenState extends State<EditorScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'editor_controller',
         builder: (controller) {
           return Column(

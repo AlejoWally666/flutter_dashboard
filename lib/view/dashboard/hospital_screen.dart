@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/dashboard/hospital_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/theme/app_theme.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/utils/my_shadow.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class HospitalScreen extends StatefulWidget {
   const HospitalScreen({super.key});
@@ -26,13 +28,13 @@ class HospitalScreen extends StatefulWidget {
 }
 
 class _HospitalScreenState extends State<HospitalScreen> with UIMixin {
-  HospitalController controller = Get.put(HospitalController());
+  final HospitalController controller = ServiceLocator.ensure<HospitalController>(() => HospitalController());
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'hospital_dashboard_controller',
         builder: (controller) {
           return Column(

@@ -44,9 +44,9 @@ class ResetPasswordController extends MyController {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     passwordController.dispose();
     confirmPasswordController.dispose();
-    super.dispose();
+    await super.dispose();
   }
 }

@@ -10,6 +10,7 @@ import 'package:flowkit/widgets/flow_kit_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -31,8 +32,8 @@ class _SignUpScreenState extends State<SignUpScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder<SignUpController>(
+        init: () => controller,
         tag: 'flowkit_sign_up_controller',
         builder: (controller) {
           return Padding(

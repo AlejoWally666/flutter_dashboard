@@ -1,16 +1,16 @@
+import 'package:flowkit/controller/my_controller.dart';
 import 'package:flowkit/helpers/services/auth_service.dart';
 import 'package:flowkit/helpers/widgets/my_form_validator.dart';
 import 'package:flowkit/helpers/widgets/my_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpController extends GetxController {
+class SignUpController extends MyController {
   MyFormValidator basicValidator = MyFormValidator();
   bool obscureText = false;
 
   @override
   void onInit() {
-    super.onInit();
     basicValidator.addField(
       'email',
       required: true,
@@ -37,6 +37,8 @@ class SignUpController extends GetxController {
       validators: [MyLengthValidator(min: 6, max: 10)],
       controller: TextEditingController(),
     );
+
+    super.onInit();
   }
 
   void showPasswordToggle() {

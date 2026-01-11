@@ -1,43 +1,126 @@
 import 'dart:convert';
 
-import 'package:flowkit/helpers/services/json_decoder.dart';
 import 'package:flowkit/images.dart';
 import 'package:flowkit/model/identifier_model.dart';
+import 'package:flowkit/model/model.dart';
 import 'package:flutter/services.dart';
 
 class ContactModel extends IdentifierModel {
-  final String name, email, phoneNumber, city, image;
+  final String name;
+  final String city;
+  final String image;
+  final String email;
+  final String phoneNumber;
+  final String website;
+  final String job;
+  final String company;
+  final String address;
+  final double? experience;
 
-  ContactModel(
-      super.id, this.name, this.email, this.phoneNumber, this.city, this.image);
+  const ContactModel({
+    int id = 0,
+    this.name = '',
+    this.city = '',
+    this.image = '',
+    this.email = '',
+    this.phoneNumber = '',
+    this.website = '',
+    this.job = '',
+    this.company = '',
+    this.address = '',
+    this.experience,
+  }) : super(id: id);
 
-  static ContactModel fromJSON(Map<String, dynamic> json) {
-    JSONDecoder decoder = JSONDecoder(json);
-
-    String name = decoder.getString('name');
-    String email = decoder.getString('email');
-    String phoneNumber = decoder.getString('phone_number');
-    String city = decoder.getString('city');
-    String image = Images.randomImage(Images.avatars);
-
-    return ContactModel(decoder.getId, name, email, phoneNumber, city, image);
+  factory ContactModel.fromJson(Map<String, dynamic>? json) {
+    final data = json ?? <String, dynamic>{};
+    return ContactModel(
+      id: Model.parseInt(data['id']),
+      name: Model.parseString(data['name']),
+      city: Model.parseString(data['city']),
+      image: Model.parseString(
+        data['image'],
+        defaultValue: Images.randomImage(Images.avatars),
+      ),
+      email: Model.parseString(data['email']),
+      phoneNumber: Model.parseString(data['phone_number']),
+      website: Model.parseString(data['website']),
+      job: Model.parseString(data['job']),
+      company: Model.parseString(data['company']),
+      address: Model.parseString(data['address']),
+      experience: data['experience'] != null
+          ? Model.parseDouble(data['experience'])
+          : null,
+    );
   }
 
-  static List<ContactModel> listFromJSON(List<dynamic> list) {
-    return list.map((e) => ContactModel.fromJSON(e)).toList();
+  factory ContactModel.fromText(String source) {
+    final dynamic decoded = jsonDecode(source);
+    if (decoded is Map<String, dynamic>) {
+      return ContactModel.fromJson(decoded);
+    }
+    return ContactModel.initial();
   }
+
+  static List<ContactModel> listFromJson(List<dynamic>? list) {
+    return Model.parseList(list, (item) => ContactModel.fromJson(item));
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'city': city,
+        'image': image,
+        'email': email,
+        'phone_number': phoneNumber,
+        'website': website,
+        'job': job,
+        'company': company,
+        'address': address,
+        'experience': experience,
+      };
+
+  ContactModel copyWith({
+    int? id,
+    String? name,
+    String? city,
+    String? image,
+    String? email,
+    String? phoneNumber,
+    String? website,
+    String? job,
+    String? company,
+    String? address,
+    double? experience,
+  }) {
+    return ContactModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      city: city ?? this.city,
+      image: image ?? this.image,
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      website: website ?? this.website,
+      job: job ?? this.job,
+      company: company ?? this.company,
+      address: address ?? this.address,
+      experience: experience ?? this.experience,
+    );
+  }
+
+  static ContactModel initial() => const ContactModel();
 
   static List<ContactModel>? _dummyList;
 
   static Future<List<ContactModel>> get dummyList async {
     if (_dummyList == null) {
-      dynamic data = json.decode(await getData());
-      _dummyList = listFromJSON(data);
+      final dynamic data = json.decode(await getData());
+      _dummyList = listFromJson(data as List<dynamic>?);
     }
     return _dummyList!;
   }
 
   static Future<String> getData() async {
-    return await rootBundle.loadString('assets/data/contact.json');
+    return rootBundle.loadString('assets/data/contact.json');
   }
 }

@@ -15,6 +15,7 @@ import 'package:flowkit/helpers/widgets/my_text_style.dart';
 import 'package:flowkit/view/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -43,8 +44,8 @@ class _NotificationScreenState extends State<NotificationScreen>
   @override
   Widget build(BuildContext context) {
     return Layout(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'notification_controller',
         builder: (controller) {
           return Column(

@@ -4,7 +4,12 @@ import 'package:flowkit/model/user.dart';
 class AuthService {
   static bool isLoggedIn = false;
 
-  static User get dummyUser => User(-1, "user@demo.com", "Denish", "Navadiya");
+  static User get dummyUser => User(
+        id: -1,
+        email: "user@demo.com",
+        firstName: "Denish",
+        lastName: "Navadiya",
+      );
 
   static Future<Map<String, String>?> loginUser(
       Map<String, dynamic> data) async {

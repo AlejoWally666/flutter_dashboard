@@ -1,4 +1,5 @@
 import 'package:flowkit/controller/auth_2/forgot_password_controller.dart';
+import 'package:flowkit/core/services/service_locator.dart';
 import 'package:flowkit/helpers/utils/mixins/ui_mixin.dart';
 import 'package:flowkit/helpers/widgets/my_button.dart';
 import 'package:flowkit/helpers/widgets/my_spacing.dart';
@@ -8,6 +9,7 @@ import 'package:flowkit/view/layouts/auth_layout_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:flowkit/helpers/widgets/controller_builder.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -18,7 +20,9 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     with UIMixin {
-  ForgotPasswordController controller = Get.put(ForgotPasswordController());
+  final ForgotPasswordController controller =
+      ServiceLocator.ensure<ForgotPasswordController>(
+          () => ForgotPasswordController());
 
   @override
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
@@ -28,8 +32,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return AuthLayout2(
-      child: GetBuilder(
-        init: controller,
+      child: ControllerBuilder(
+        init: () => controller,
         tag: 'auth_2forgot_password_controller',
         builder: (controller) {
           return Form(
